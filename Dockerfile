@@ -26,9 +26,8 @@ WORKDIR /root/
 # Copy the pre-built binary file from the previous stage
 COPY --from=builder /app/srvd-app .
 
-# Copy views and any static files
+# Copy views directory
 COPY --from=builder /app/views ./views
-COPY --from=builder /app/public ./public 2>/dev/null || true
 
 # Expose port
 EXPOSE 3000
