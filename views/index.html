@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>srvd.dev</title>
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='white' d='M20 6h-5.586l2.293-2.293l-1.414-1.414L12 5.586L8.707 2.293L7.293 3.707L9.586 6H4c-1.103 0-2 .897-2 2v11c0 1.103.897 2 2 2h16c1.103 0 2-.897 2-2V8c0-1.103-.897-2-2-2zM4 19V8h16l.002 11H4z'/></svg>" />
+    <script src="https://unpkg.com/htmx.org@1.9.6"></script>
+    <script src="https://code.iconify.design/iconify-icon/1.0.7/iconify-icon.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --color-primary: #5D4A80;
+            --color-light: #f3f4f6;
+            --color-dark: #202030;
+            --color-text-light: #f3f4f6;
+            --color-text-dark: #202030;
+        }
+
+        * {
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--color-light);
+            color: var(--color-text-dark);
+        }
+
+        body.dark {
+            background-color: var(--color-dark);
+            color: var(--color-text-light);
+        }
+
+        .container {
+            max-width: 800px;
+            width: 90%;
+            padding: 2rem;
+            text-align: center;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.125);
+        }
+
+        .dark .container {
+            background: rgba(32, 32, 48, 0.8);
+            border-color: rgba(255, 255, 255, 0.05);
+        }
+
+        .logo {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--color-primary);
+            margin-bottom: 1rem;
+            letter-spacing: -2px;
+        }
+
+        .tagline {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+            line-height: 1.6;
+            opacity: 0.8;
+        }
+
+        .contact-section {
+            background-color: var(--color-primary);
+            color: var(--color-text-light);
+            padding: 1.5rem;
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-email {
+            font-size: 1.125rem;
+            font-weight: 600;
+            text-decoration: none;
+            color: var(--color-text-light);
+            transition: opacity 0.3s ease;
+        }
+
+        .contact-email:hover {
+            opacity: 0.8;
+        }
+
+        .theme-toggle {
+            position: fixed;
+            top: 1.5rem;
+            right: 1.5rem;
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--color-text-dark);
+        }
+
+        .dark .theme-toggle {
+            color: var(--color-text-light);
+        }
+
+        @media (max-width: 600px) {
+            .logo {
+                font-size: 3rem;
+            }
+            .tagline {
+                font-size: 1rem;
+            }
+        }
+    </style>
+    <script>
+        function initTheme() {
+            const isDark = localStorage.theme === 'dark' || 
+                           (!('theme' in localStorage) && 
+                            window.matchMedia('(prefers-color-scheme: dark)').matches);
+            
+            document.body.classList.toggle('dark', isDark);
+            updateThemeIcon();
+        }
+
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark');
+            const isDark = document.body.classList.contains('dark');
+            localStorage.theme = isDark ? 'dark' : 'light';
+            updateThemeIcon();
+        }
+
+        function updateThemeIcon() {
+            const icon = document.querySelector('.theme-toggle iconify-icon');
+            const isDark = document.body.classList.contains('dark');
+            icon.setAttribute('icon', isDark ? 'carbon:sun' : 'carbon:moon');
+        }
+
+        // Initialize theme on page load
+        document.addEventListener('DOMContentLoaded', initTheme);
+    </script>
+</head>
+<body>
+    <button 
+        class="theme-toggle"
+        onclick="toggleDarkMode()">
+        <iconify-icon class="text-xl" icon="carbon:moon" width="28" height="28"></iconify-icon>
+    </button>
+
+    <div class="container">
+        <div class="logo">srvd.dev</div>
+        <p class="tagline">
+            Innovative development services crafting elegant solutions for complex technical challenges
+        </p>
+        <div class="contact-section">
+            <p>For project inquiries, collaborations, or questions:</p>
+            <a href="mailto:accounts@srvd.dev" class="contact-email">
+                accounts@srvd.dev
+            </a>
+        </div>
+    </div>
+</body>
+</html>
