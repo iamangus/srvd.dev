@@ -17,7 +17,7 @@ jobs:
       id: vars
       run: echo ::set-output name=tag::$(echo $(date +%s))
     - name: Build the tagged Docker image
-      run: docker build . --target bolt-ai-production --file Dockerfile --tag docker.pkg.github.com/iamangus/srvd.dev/srvd.dev:latest
+      run: docker build . --file Dockerfile --tag docker.pkg.github.com/iamangus/srvd.dev/srvd.dev:latest
     - name: Push the latest Docker image
       run: docker push docker.pkg.github.com/iamangus/srvd.dev/srvd.dev:latest
     - name: retag and push
